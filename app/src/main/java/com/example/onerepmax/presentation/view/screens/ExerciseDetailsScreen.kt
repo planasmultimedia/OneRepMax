@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.onerepmax.domain.entity.ExerciseDetails
-import com.example.onerepmax.domain.entity.ExerciseMaxRepRecord
+import com.example.onerepmax.domain.entity.ExerciseMaxOneRepRecord
 import com.example.onerepmax.presentation.theme.OneRepMaxTheme
 import com.example.onerepmax.presentation.view.components.ExerciseRecordCard
 import com.example.onerepmax.presentation.view.components.NavTopBar
@@ -72,7 +72,7 @@ fun ExerciseDetails(
                 .fillMaxSize()
                 .padding(horizontal = 32.dp, vertical = 16.dp)
         ) {
-            ExerciseRecordCard(exercise = ExerciseMaxRepRecord(details.name, details.maxRepRecord))
+            ExerciseRecordCard(exercise = ExerciseMaxOneRepRecord(details.name, details.maxOneRepRecord))
             LineChart(details.historical)
         }
     }

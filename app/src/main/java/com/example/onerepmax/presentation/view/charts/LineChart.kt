@@ -10,19 +10,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.onerepmax.domain.entity.HistoricalMaxRepRecord
+import com.example.onerepmax.domain.entity.HistoricalMaxOneRepRecord
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
 
 @Composable
 fun LineChart (
-    data : List<HistoricalMaxRepRecord>,
+    data : List<HistoricalMaxOneRepRecord>,
     lineColor: Color = MaterialTheme.colorScheme.primary,
     textColor: Color = MaterialTheme.colorScheme.secondary
 ) {
@@ -38,7 +36,7 @@ fun LineChart (
 
 fun createLineChart(
     context: Context,
-    data: List<HistoricalMaxRepRecord>,
+    data: List<HistoricalMaxOneRepRecord>,
     lineColor: Int,
     textColor: Int
 ): LineChart {
@@ -48,7 +46,7 @@ fun createLineChart(
 
     for (i in data.indices) {
         val historical = data[i]
-        entries.add(Entry(i.toFloat(), historical.maxRep.toFloat()))
+        entries.add(Entry(i.toFloat(), historical.maxOneRep.toFloat()))
         xLabels.add(historical.date)
     }
 

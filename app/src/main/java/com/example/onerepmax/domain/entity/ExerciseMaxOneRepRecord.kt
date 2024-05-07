@@ -1,6 +1,6 @@
 package com.example.onerepmax.domain.entity
 
-data class ExerciseMaxRepRecord(
+data class ExerciseMaxOneRepRecord(
     val name: String,
-    val maxRep: Double
+    val maxOneRep: Double
 )
