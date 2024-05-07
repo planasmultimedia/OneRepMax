@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -52,9 +54,19 @@ fun ExerciseDetails(
     viewModel : ExerciseDetailsViewModel = hiltViewModel()
 ) {
     val details by viewModel.details.collectAsState()
-    viewModel.getExerciseDetails(exerciseName)
+    val error by viewModel.error.collectAsState()
 
-    if (details != ExerciseDetails.empty) {
+    LaunchedEffect(exerciseName) {
+        viewModel.getExerciseDetails(exerciseName)
+    }
+
+    if (error != null) {
+        Text(
+            text = error.toString(),
+            color = MaterialTheme.colorScheme.primary
+        )
+    }
+    else if (details != ExerciseDetails.empty) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

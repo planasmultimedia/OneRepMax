@@ -19,9 +19,16 @@ class ExerciseDetailsViewModel @Inject constructor(
     private val _details =  MutableStateFlow(ExerciseDetails.empty)
     val details: StateFlow<ExerciseDetails> = _details.asStateFlow()
 
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error.asStateFlow()
+
     fun getExerciseDetails(exerciseName: String) {
         viewModelScope.launch {
-            _details.value = fetchExercises.execute(exerciseName)
+            try {
+                _details.value = fetchExercises.execute(exerciseName)
+            } catch (e: Exception) {
+                _error.value = e.message
+            }
         }
     }
 }

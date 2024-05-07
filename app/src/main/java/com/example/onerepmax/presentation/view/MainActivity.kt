@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -43,8 +44,21 @@ fun MainScreen(
     viewModel: ExercisesViewModel = hiltViewModel()
 ) {
     val workouts by viewModel.exercises.collectAsState()
+    val error by viewModel.error.collectAsState()
 
-    if (workouts.isNotEmpty()) {
+    if (error != null) {
+        Text(
+            text = error.toString(),
+            color = MaterialTheme.colorScheme.primary
+        )
+    }
+    else if (workouts.isNotEmpty()) {
         ExerciseListScreen(exercises = workouts, onExerciseClicked)
+    }
+    else {
+        Text(
+            text = "No exercises found",
+            color = MaterialTheme.colorScheme.primary
+        )
     }
 }
