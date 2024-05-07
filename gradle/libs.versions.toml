@@ -14,6 +14,7 @@ lifecycle-viewmodel-compose = "2.6.1"
 navigation-compose = "2.7.7"
 compose = "1.6.7"
 mp-android-chart = "3.1.0"
+transportationConsumer = "2.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +41,7 @@ androidx-compose-ui= {group ="androidx.compose.ui", name = "ui", version.ref = "
 androidx-compose-material= {group ="androidx.compose.material", name = "material", version.ref = "compose"}
 
 mp-android-chart = { module ="com.github.PhilJay:MPAndroidChart", version.ref = "mp-android-chart"}
+transportation-consumer = { group = "com.google.android.libraries.mapsplatform.transportation", name = "transportation-consumer", version.ref = "transportationConsumer" }
 
 
 [bundles]
