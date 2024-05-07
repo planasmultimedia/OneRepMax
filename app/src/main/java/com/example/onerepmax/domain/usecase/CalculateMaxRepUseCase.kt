@@ -8,13 +8,18 @@ class CalculateMaxRepUseCase @Inject constructor(
     private val calculator: BrzyckiMaxOneRepCalculator
 )  {
     suspend fun execute(): List<ExerciseMaxRepRecord> {
-        val allExercise = exerciseRepository.getAllExercises()
-        return allExercise.groupBy { it.exerciseName }
-            .map { (exercise, entries) ->
-                ExerciseMaxRepRecord(
-                    name = exercise,
-                    maxRep = entries.maxOf { entry -> calculator.calculate(entry.weight, entry.reps) }
-                )
-            }
+        try {
+            val allExercise = exerciseRepository.getAllExercises()
+            return allExercise.groupBy { it.exerciseName }
+                .map { (exercise, entries) ->
+                    ExerciseMaxRepRecord(
+                        name = exercise,
+                        maxRep = entries.maxOf { entry -> calculator.calculate(entry.weight, entry.reps) }
+                    )
+                }
+        }
+        catch (e: Exception) {
+            throw e
+        }
     }
 }

@@ -13,20 +13,25 @@ class FetchExerciseHistoryDetailsUseCase @Inject constructor(
     private val calculator: BrzyckiMaxOneRepCalculator,
 )  {
     suspend fun execute(exerciseName : String): ExerciseDetails {
-        val allExercise = exerciseRepository.getExercisesByName(exerciseName)
-        val maxReps = allExercise
-            .groupBy { it.date }
-            .map { (date, exercises) ->
-                val maxOneRep = exercises.maxOf { exercise ->
-                    calculator.calculate(exercise.weight, exercise.reps)
+        try {
+            val allExercise = exerciseRepository.getExercisesByName(exerciseName)
+            val maxReps = allExercise
+                .groupBy { it.date }
+                .map { (date, exercises) ->
+                    val maxOneRep = exercises.maxOf { exercise ->
+                        calculator.calculate(exercise.weight, exercise.reps)
+                    }
+                    HistoricalMaxRepRecord(date, maxOneRep)
                 }
-                HistoricalMaxRepRecord(date, maxOneRep)
-            }
 
-        val orderedHistorical = maxReps.sortedBy { parseDate(it.date)}
-        val maxRepRecord = orderedHistorical.maxOf { it.maxRep }
+            val orderedHistorical = maxReps.sortedBy { parseDate(it.date)}
+            val maxRepRecord = orderedHistorical.maxOf { it.maxRep }
 
-        return ExerciseDetails(exerciseName, maxRepRecord, orderedHistorical)
+            return ExerciseDetails(exerciseName, maxRepRecord, orderedHistorical)
+        }
+        catch (e: Exception) {
+            throw e
+        }
     }
 
     fun parseDate(dateStr: String): LocalDate {

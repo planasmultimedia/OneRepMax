@@ -3,7 +3,12 @@ package com.example.onerepmax.data.repository
 import com.example.onerepmax.data.local.FileReader
 import com.example.onerepmax.data.model.WorkoutDTO
 import com.example.onerepmax.data.parser.WorkoutFileParser
+import java.io.FileNotFoundException
+import java.io.IOException
 import javax.inject.Inject
+
+class FileReadException(message: String): Exception(message)
+class DataParseException(message: String): Exception(message)
 
 class ExerciseLocalTxtRepositoryImpl @Inject constructor(private val fileReader: FileReader) : ExerciseRepository {
 
@@ -11,12 +16,25 @@ class ExerciseLocalTxtRepositoryImpl @Inject constructor(private val fileReader:
     private val exercisesCache = mutableListOf<WorkoutDTO>()
 
     override fun getAllExercises(): List<WorkoutDTO> {
-        if (exercisesCache.isEmpty()) {
-            val lines = fileReader.readLines("workout_data.txt")
-            return parser.parseWorkouts(lines)
-        }
-        else {
-            return exercisesCache
+        try {
+            if (exercisesCache.isEmpty()) {
+                val lines = fileReader.readLines("workout_data.txt")
+                val parsedWorkouts = try {
+                    parser.parseWorkouts(lines)
+                } catch (e: Exception) {
+                    throw DataParseException("Error parsing workouts from file: ${e.message}")
+                }
+                exercisesCache.addAll(parsedWorkouts)
+                return parsedWorkouts
+            } else {
+                return exercisesCache
+            }
+        } catch (e: FileNotFoundException) {
+            throw FileReadException("Workout data file not found: ${e.message}")
+        } catch (e: IOException) {
+            throw FileReadException("Error reading from the workout data file: ${e.message}")
+        } catch (e: Exception) {
+            throw Exception("An unexpected error occurred: ${e.message}")
         }
     }
 
