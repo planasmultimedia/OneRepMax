@@ -3,8 +3,9 @@ package com.example.onerepmax.di
 import android.content.Context
 import com.example.onerepmax.data.local.AssetFileReader
 import com.example.onerepmax.data.local.FileReader
-import com.example.onerepmax.data.repository.WorkoutLocalTxtRepositoryImpl
-import com.example.onerepmax.data.repository.WorkoutRepository
+import com.example.onerepmax.data.repository.ExerciseLocalTxtRepositoryImpl
+import com.example.onerepmax.data.repository.ExerciseRepository
+import com.example.onerepmax.domain.usecase.BrzyckiMaxOneRepCalculator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,13 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideWorkoutRepository(fileReader: FileReader): WorkoutRepository {
-        return WorkoutLocalTxtRepositoryImpl(fileReader)
+    fun provideWorkoutRepository(fileReader: FileReader): ExerciseRepository {
+        return ExerciseLocalTxtRepositoryImpl(fileReader)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCalculator(): BrzyckiMaxOneRepCalculator {
+        return BrzyckiMaxOneRepCalculator()
     }
 }

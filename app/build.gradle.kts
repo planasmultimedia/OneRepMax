@@ -73,4 +73,10 @@ dependencies {
     implementation(libs.hilt.nav)
     implementation(libs.androidx.lifecycle.viewmodel)
     kapt(libs.hilt.compiler)
+
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.naviagtion.compose)
+
+    implementation(libs.mp.android.chart)
 }

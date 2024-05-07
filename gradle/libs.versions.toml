@@ -11,6 +11,9 @@ composeBom = "2023.08.00"
 hilt = "2.50"
 hilt-nav = "1.2.0"
 lifecycle-viewmodel-compose = "2.6.1"
+navigation-compose = "2.7.7"
+compose = "1.6.7"
+mp-android-chart = "3.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,6 +34,13 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-nav = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-nav" }
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel-compose" }
+
+androidx-naviagtion-compose= {group ="androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose"}
+androidx-compose-ui= {group ="androidx.compose.ui", name = "ui", version.ref = "compose"}
+androidx-compose-material= {group ="androidx.compose.material", name = "material", version.ref = "compose"}
+
+mp-android-chart = { module ="com.github.PhilJay:MPAndroidChart", version.ref = "mp-android-chart"}
+
 
 [bundles]
 hilt = ["hilt-android", "hilt-compiler"]

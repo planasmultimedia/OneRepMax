@@ -1,6 +1,6 @@
 package com.example.onerepmax.presentation.view
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,22 +17,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.onerepmax.domain.entity.Exercise
+import com.example.onerepmax.domain.entity.ExerciseMaxRepRecord
+
 @Composable
-fun ExerciseListScreen(exercises : List<Exercise>){
+fun ExerciseListScreen(
+    exercises : List<ExerciseMaxRepRecord>,
+    onExerciseClicked : (String) -> Unit,
+){
     LazyColumn (
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = 16.dp)
     ) {
         items(exercises.size){
-            ExerciseItem(exercises[it])
+            ExerciseItem(exercises[it], onExerciseClicked)
         }
     }
 }
 
 @Composable
-fun ExerciseItem(exercise: Exercise) {
+fun ExerciseItem(exercise: ExerciseMaxRepRecord, onExerciseClicked : (String) -> Unit) {
     Column (
         modifier = Modifier
             .fillMaxWidth()
@@ -40,51 +44,9 @@ fun ExerciseItem(exercise: Exercise) {
                 vertical = 4.dp,
                 horizontal = 16.dp
             )
-
-    ){
-        ExerciseInfo(exercise.name, exercise.oneRepMax)
-        Spacer(modifier = Modifier.size(4.dp))
-        InfoLegend()
-        Spacer(modifier = Modifier.height(4.dp))
+            .clickable { onExerciseClicked(exercise.name) }
+    ) {
+        ExerciseRecordCard(exercise = exercise)
         Divider(color = Color.LightGray)
-    }
-}
-
-@Composable
-fun ExerciseInfo(name: String, record : Double) {
-
-    Row(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text(
-            text = name,
-            modifier = Modifier.weight(1f),
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.secondary
-        )
-        Text(
-            text = record.toInt().toString(),
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.secondary)
-    }
-}
-
-
-@Composable
-fun InfoLegend() {
-    Row(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text(
-            modifier = Modifier.weight(1f),
-            text = "1 RM Record",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.tertiary
-        )
-
-        Text(
-            text = "lbs",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.tertiary)
     }
 }
