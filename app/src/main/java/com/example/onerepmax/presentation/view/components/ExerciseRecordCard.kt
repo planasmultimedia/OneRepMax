@@ -10,11 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.onerepmax.domain.entity.ExerciseMaxRepRecord
+import com.example.onerepmax.domain.entity.ExerciseMaxOneRepRecord
 
 @Composable
-fun ExerciseRecordCard(exercise : ExerciseMaxRepRecord) {
-    ExerciseInfo(exercise.name, exercise.maxRep)
+fun ExerciseRecordCard(exercise : ExerciseMaxOneRepRecord) {
+    ExerciseInfo(exercise.name, exercise.maxOneRep)
     Spacer(modifier = Modifier.size(4.dp))
     InfoLegend()
     Spacer(modifier = Modifier.height(4.dp))

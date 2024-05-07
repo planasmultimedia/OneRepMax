@@ -3,7 +3,7 @@ package com.example.onerepmax
 import com.example.onerepmax.data.model.WorkoutDTO
 import com.example.onerepmax.data.repository.DataParseException
 import com.example.onerepmax.data.repository.ExerciseRepository
-import com.example.onerepmax.domain.entity.ExerciseMaxRepRecord
+import com.example.onerepmax.domain.entity.ExerciseMaxOneRepRecord
 import com.example.onerepmax.domain.usecase.BrzyckiMaxOneRepCalculator
 import com.example.onerepmax.domain.usecase.CalculateMaxRepUseCase
 import io.mockk.MockKAnnotations
@@ -11,9 +11,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.verify
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -53,7 +51,7 @@ class CalculateMaxRepUseCaseTest {
         val result = calculateMaxRepUseCase.execute()
 
         assert(result.size == 1)
-        assert(result[0] == ExerciseMaxRepRecord("Deadlift", 162.0))
+        assert(result[0] == ExerciseMaxOneRepRecord("Deadlift", 162.0))
     }
 
 
@@ -70,8 +68,8 @@ class CalculateMaxRepUseCaseTest {
         val result = calculateMaxRepUseCase.execute()
 
         assert(result.size == 2)
-        assert(result[0] == ExerciseMaxRepRecord("Deadlift", 162.0))
-        assert(result[1] == ExerciseMaxRepRecord("Back Squat", 161.0))
+        assert(result[0] == ExerciseMaxOneRepRecord("Deadlift", 162.0))
+        assert(result[1] == ExerciseMaxOneRepRecord("Back Squat", 161.0))
     }
 
     @Test

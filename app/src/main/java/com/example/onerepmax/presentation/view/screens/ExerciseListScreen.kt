@@ -15,14 +15,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.onerepmax.R
-import com.example.onerepmax.domain.entity.ExerciseMaxRepRecord
+import com.example.onerepmax.domain.entity.ExerciseMaxOneRepRecord
 import com.example.onerepmax.presentation.theme.OneRepMaxTheme
 import com.example.onerepmax.presentation.view.components.ExerciseRecordCard
 import com.example.onerepmax.presentation.view.components.NavTopBar
 
 @Composable
 fun ExerciseListScreen(
-    exercises : List<ExerciseMaxRepRecord>,
+    exercises : List<ExerciseMaxOneRepRecord>,
     onExerciseClicked : (String) -> Unit,
 ) {
     OneRepMaxTheme {
@@ -46,7 +46,7 @@ fun ExerciseListScreen(
 }
 
 @Composable
-fun ExerciseList(exercises: List<ExerciseMaxRepRecord>, onExerciseClicked : (String) -> Unit) {
+fun ExerciseList(exercises: List<ExerciseMaxOneRepRecord>, onExerciseClicked : (String) -> Unit) {
     LazyColumn (
         modifier = Modifier
             .fillMaxSize()
@@ -59,7 +59,7 @@ fun ExerciseList(exercises: List<ExerciseMaxRepRecord>, onExerciseClicked : (Str
 }
 
 @Composable
-fun ExerciseItem(exercise: ExerciseMaxRepRecord, onExerciseClicked : (String) -> Unit) {
+fun ExerciseItem(exercise: ExerciseMaxOneRepRecord, onExerciseClicked : (String) -> Unit) {
     Column (
         modifier = Modifier
             .fillMaxWidth()

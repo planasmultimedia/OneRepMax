@@ -2,7 +2,7 @@ package com.example.onerepmax.domain.usecase
 
 import com.example.onerepmax.data.repository.ExerciseRepository
 import com.example.onerepmax.domain.entity.ExerciseDetails
-import com.example.onerepmax.domain.entity.HistoricalMaxRepRecord
+import com.example.onerepmax.domain.entity.HistoricalMaxOneRepRecord
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -21,11 +21,11 @@ class FetchExerciseHistoryDetailsUseCase @Inject constructor(
                     val maxOneRep = exercises.maxOf { exercise ->
                         calculator.calculate(exercise.weight, exercise.reps)
                     }
-                    HistoricalMaxRepRecord(date, maxOneRep)
+                    HistoricalMaxOneRepRecord(date, maxOneRep)
                 }
 
             val orderedHistorical = maxReps.sortedBy { parseDate(it.date)}
-            val maxRepRecord = orderedHistorical.maxOf { it.maxRep }
+            val maxRepRecord = orderedHistorical.maxOf { it.maxOneRep }
 
             return ExerciseDetails(exerciseName, maxRepRecord, orderedHistorical)
         }

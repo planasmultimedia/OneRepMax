@@ -2,8 +2,7 @@ package com.example.onerepmax
 
 import com.example.onerepmax.data.model.WorkoutDTO
 import com.example.onerepmax.data.repository.ExerciseRepository
-import com.example.onerepmax.domain.entity.ExerciseMaxRepRecord
-import com.example.onerepmax.domain.entity.HistoricalMaxRepRecord
+import com.example.onerepmax.domain.entity.HistoricalMaxOneRepRecord
 import com.example.onerepmax.domain.usecase.BrzyckiMaxOneRepCalculator
 import com.example.onerepmax.domain.usecase.FetchExerciseHistoryDetailsUseCase
 import io.mockk.MockKAnnotations
@@ -42,11 +41,11 @@ class FetchExerciseHistoryDetailsUseCaseTest {
 
         coVerify(exactly = 1) { exerciseRepository.getExercisesByName("Deadlift") }
         assert(result.historical.size == 4)
-        assert(result.historical[0] == HistoricalMaxRepRecord("Oct 17 2020", 161.0))
-        assert(result.historical[1] == HistoricalMaxRepRecord("Oct 18 2020", 161.0))
-        assert(result.historical[2] == HistoricalMaxRepRecord("Oct 20 2020", 138.0))
-        assert(result.historical[3] == HistoricalMaxRepRecord("Oct 27 2020", 162.0))
-        assert(result.maxRepRecord == 162.0)
+        assert(result.historical[0] == HistoricalMaxOneRepRecord("Oct 17 2020", 161.0))
+        assert(result.historical[1] == HistoricalMaxOneRepRecord("Oct 18 2020", 161.0))
+        assert(result.historical[2] == HistoricalMaxOneRepRecord("Oct 20 2020", 138.0))
+        assert(result.historical[3] == HistoricalMaxOneRepRecord("Oct 27 2020", 162.0))
+        assert(result.maxOneRepRecord == 162.0)
         assert(result.name.equals("Deadlift"))
     }
 
@@ -61,10 +60,10 @@ class FetchExerciseHistoryDetailsUseCaseTest {
 
         coVerify(exactly = 1) { exerciseRepository.getExercisesByName("Deadlift") }
         assert(result.historical.size == 3)
-        assert(result.historical[0] == HistoricalMaxRepRecord("Oct 17 2020", 161.0))
-        assert(result.historical[1] == HistoricalMaxRepRecord("Oct 18 2020", 161.0))
-        assert(result.historical[2] == HistoricalMaxRepRecord("Oct 27 2020", 162.0))
-        assert(result.maxRepRecord == 162.0)
+        assert(result.historical[0] == HistoricalMaxOneRepRecord("Oct 17 2020", 161.0))
+        assert(result.historical[1] == HistoricalMaxOneRepRecord("Oct 18 2020", 161.0))
+        assert(result.historical[2] == HistoricalMaxOneRepRecord("Oct 27 2020", 162.0))
+        assert(result.maxOneRepRecord == 162.0)
         assert(result.name.equals("Deadlift"))
     }
 
