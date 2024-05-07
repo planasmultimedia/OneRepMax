@@ -20,6 +20,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
     }
 
     buildTypes {
@@ -80,4 +81,7 @@ dependencies {
     implementation(libs.androidx.naviagtion.compose)
 
     implementation(libs.mp.android.chart)
+
+    testImplementation("io.mockk:mockk:1.13.10")
+
 }

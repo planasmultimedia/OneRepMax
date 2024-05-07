@@ -18,12 +18,7 @@ class ExerciseLocalTxtRepositoryImpl @Inject constructor(private val fileReader:
     override fun getAllExercises(): List<WorkoutDTO> {
         try {
             if (exercisesCache.isEmpty()) {
-                val lines = fileReader.readLines("workout_data.txt")
-                val parsedWorkouts = try {
-                    parser.parseWorkouts(lines)
-                } catch (e: Exception) {
-                    throw DataParseException("Error parsing workouts from file: ${e.message}")
-                }
+                val parsedWorkouts = getWorkouts()
                 exercisesCache.addAll(parsedWorkouts)
                 return parsedWorkouts
             } else {
@@ -31,11 +26,21 @@ class ExerciseLocalTxtRepositoryImpl @Inject constructor(private val fileReader:
             }
         } catch (e: FileNotFoundException) {
             throw FileReadException("Workout data file not found: ${e.message}")
-        } catch (e: IOException) {
-            throw FileReadException("Error reading from the workout data file: ${e.message}")
+        } catch (e: DataParseException) {
+            throw DataParseException("Error reading from the workout data file: ${e.message}")
         } catch (e: Exception) {
             throw Exception("An unexpected error occurred: ${e.message}")
         }
+    }
+
+    private fun getWorkouts(): List<WorkoutDTO> {
+        val lines = fileReader.readLines("workout_data.txt")
+        val parsedWorkouts = try {
+            parser.parseWorkouts(lines)
+        } catch (e: Exception) {
+            throw DataParseException("Error parsing workouts from file: ${e.message}")
+        }
+        return parsedWorkouts
     }
 
     override fun getExercisesByName(name: String): List<WorkoutDTO> {
