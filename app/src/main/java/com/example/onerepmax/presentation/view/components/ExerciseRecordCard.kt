@@ -1,4 +1,4 @@
-package com.example.onerepmax.presentation.view
+package com.example.onerepmax.presentation.view.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,7 +38,6 @@ fun ExerciseInfo(name: String, record : Double) {
             color = MaterialTheme.colorScheme.secondary)
     }
 }
-
 
 @Composable
 fun InfoLegend() {

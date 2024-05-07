@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.onerepmax.presentation.navigation.AppNavigation
 import com.example.onerepmax.presentation.theme.OneRepMaxTheme
+import com.example.onerepmax.presentation.view.screens.ExerciseListScreen
 import com.example.onerepmax.presentation.viewmodels.ExercisesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
