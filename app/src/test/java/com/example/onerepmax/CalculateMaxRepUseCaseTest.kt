@@ -1,6 +1,7 @@
 package com.example.onerepmax
 
 import com.example.onerepmax.data.model.WorkoutDTO
+import com.example.onerepmax.data.repository.DataParseException
 import com.example.onerepmax.data.repository.ExerciseRepository
 import com.example.onerepmax.domain.entity.ExerciseMaxRepRecord
 import com.example.onerepmax.domain.usecase.BrzyckiMaxOneRepCalculator
@@ -10,7 +11,10 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.verify
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -70,15 +74,29 @@ class CalculateMaxRepUseCaseTest {
         assert(result[1] == ExerciseMaxRepRecord("Back Squat", 161.0))
     }
 
+    @Test
+    fun `when the date format is incorrect throw DataParseException` () = runBlocking {
+        coEvery { exerciseRepository.getAllExercises() } throws DataParseException("Invalid date format")
+        every { calculator.calculate(100.0, 10) } returns 138.0
+
+        var exceptionThrown = false
+        try {
+            val result = calculateMaxRepUseCase.execute()
+        } catch(exception: DataParseException) {
+            exceptionThrown = true
+        }
+        assertTrue(exceptionThrown)
+    }
+
 
     val multipleDeadliftExercises = listOf(
-        WorkoutDTO("Deadlift", "20 Oct 2020", 10, 100.0),
-        WorkoutDTO("Deadlift", "23 Oct 2020", 8, 130.0),
-        WorkoutDTO("Deadlift", "25 Oct 2020", 6, 140.0),
+        WorkoutDTO("Deadlift", "Oct 20 2020", 10, 100.0),
+        WorkoutDTO("Deadlift", "Oct 23 2020", 8, 130.0),
+        WorkoutDTO("Deadlift", "Oct 25 2020", 6, 140.0),
     )
 
     val multipleBackSquatExercises = listOf(
-        WorkoutDTO("Back Squat", "20 Oct 2020", 10, 100.0),
-        WorkoutDTO("Back Squat", "23 Oct 2020", 8, 130.0),
+        WorkoutDTO("Back Squat", "Oct 20 2020", 10, 100.0),
+        WorkoutDTO("Back Squat", "Oct 23 2020", 8, 130.0),
     )
 }
